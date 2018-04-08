@@ -1,0 +1,24 @@
+{
+  "name": "house-scraper",
+  "version": "1.0.0",
+  "description": "House scraper",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richardstevens/house-scraper.git"
+  },
+  "author": "Richard Stevens <rsrichardstevens@googlemail.com> (https://github.com/richardstevens/whynopadlock)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/richardstevens/house-scraper/issues"
+  },
+  "homepage": "https://github.com/richardstevens/house-scraper#readme",
+  "dependencies": {
+    "rightmove-scraper": "^1.0.3",
+    "superagent": "^3.8.2",
+    "superagent-throttle": "^0.2.5"
+  }
+}
