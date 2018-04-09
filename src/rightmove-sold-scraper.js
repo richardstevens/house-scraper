@@ -51,8 +51,8 @@ const scrape = async (url, page) => {
         price,
         type: type[0],
         hold: type[1],
-        residential: type[2].indexOf('Residential') > -1,
-        newBuild: type[2].indexOf('New Build') > -1,
+        residential: type[2] ? type[2].indexOf('Residential') > -1 : false,
+        newBuild: type[2] ? type[2].indexOf('New Build') > -1 : false,
         soldDate,
         bedrooms
       })
@@ -94,25 +94,29 @@ if (!outcodeData.length) {
 }
 logger.info('Started timer', logger.timer('house-scraper'))
 
-outcodeData.map(outcode => runAll(outcode)
-  .then(results => {
-    logger.debug(results)
-    results.map(async house => {
-      await database.query(addProperty, [
-        house.number,
-        house.postcode,
-        house.address,
-        house.price,
-        house.type,
-        house.hold,
-        house.residential,
-        house.newBuild,
-        house.soldDate,
-        house.bedrooms
-      ])
+outcodeData.reduce((chain, outcode) => chain.then(async () => {
+  logger.info('Started timer', logger.timer(outcode.outcode))
+  await runAll(outcode.code)
+    .then(results => {
+      logger.debug(results)
+      results.map(async house => {
+        await database.query(addProperty, [
+          house.number,
+          house.postcode,
+          house.address,
+          house.price,
+          house.type,
+          house.hold,
+          house.residential,
+          house.newBuild,
+          house.soldDate,
+          house.bedrooms
+        ])
+      })
+      logger.info('Finished for', outcode.outcode)
+      logger.info('Ended timer', logger.timerEnd(outcode.outcode))
     })
-    logger.info('Finished for', outcode)
-    logger.info('Ended timer', logger.timerEnd('house-scraper'))
-    process.exit()
-  })
-)
+}), Promise.resolve())
+
+logger.info('Ended timer', logger.timerEnd('house-scraper'))
+process.exit()
