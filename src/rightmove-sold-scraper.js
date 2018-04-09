@@ -117,6 +117,7 @@ outcodeData.reduce((chain, outcode) => chain.then(async () => {
       logger.info('Ended timer', logger.timerEnd(outcode.outcode))
     })
 }), Promise.resolve())
-
-logger.info('Ended timer', logger.timerEnd('house-scraper'))
-process.exit()
+  .then(() => {
+    logger.info('Ended timer', logger.timerEnd('house-scraper'))
+    process.exit()
+  })
