@@ -2,10 +2,10 @@ const request = require('superagent')
 const Throttle = require('superagent-throttle')
 const fs = require('fs')
 const throttle = new Throttle({
-  active: true,     // set false to pause queue
-  rate: 500,         // how many requests can be sent every `ratePer`
-  ratePer: 5000,    // number of ms in which `rate` requests may be sent
-  concurrent: 2     // how many requests can be sent concurrently
+  active: true, // set false to pause queue
+  rate: 500, // how many requests can be sent every `ratePer`
+  ratePer: 5000, // number of ms in which `rate` requests may be sent
+  concurrent: 2 // how many requests can be sent concurrently
 })
 
 const outcodeReqs = [...Array(2950)]
@@ -35,22 +35,22 @@ const reqFunctions = outcodeReqs
 
 const makeRequests = () => {
   Promise.all(reqFunctions)
-  .then(res => {
-    res = res
-      .filter(data => data)
-      .filter(data => !data.error)
-    const outcodeData = res
-      .map(data => {
-        return {
-          code: Number(data.searchableLocation.identifier.split('^')[1]),
-          outcode: data.searchableLocation.name
-        }
-      })
-    if (outcodeData.length) {
-      fs.mkdirSync('./output')
-      fs.writeFileSync('./output/outcodeData.json', JSON.stringify(outcodeData), 'utf8')
-    }
-  })
+    .then(res => {
+      res = res
+        .filter(data => data)
+        .filter(data => !data.error)
+      const outcodeData = res
+        .map(data => {
+          return {
+            code: Number(data.searchableLocation.identifier.split('^')[1]),
+            outcode: data.searchableLocation.name
+          }
+        })
+      if (outcodeData.length) {
+        fs.mkdirSync('./output')
+        fs.writeFileSync('./output/outcodeData.json', JSON.stringify(outcodeData), 'utf8')
+      }
+    })
 }
 
 makeRequests()

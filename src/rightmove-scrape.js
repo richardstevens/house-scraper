@@ -1,4 +1,3 @@
-const fs = require('fs')
 const request = require('superagent')
 const pages = 50 // Max number returned from pagination
 let outcodeData = require('../output/outcodeData.json')
@@ -24,7 +23,8 @@ const makeReq = reqGenerator => {
 }
 
 const getAllPages = async page => {
-  let offset = 0, remaining = true
+  let offset = 0
+  let remaining = true
   let pageData = []
   do {
     const url = page + '&index=' + offset

@@ -4,7 +4,10 @@
   "description": "House scraper",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run lint",
+    "lintfix": "standard 'src/**/*' --fix --verbose | snazzy && echo ✔ All good!",
+    "lint": "standard 'src/**/*' --verbose | snazzy && echo ✔ All good!",
+    "start": "node src/rightmove-sold-scraper.js"
   },
   "repository": {
     "type": "git",
@@ -17,8 +20,17 @@
   },
   "homepage": "https://github.com/richardstevens/house-scraper#readme",
   "dependencies": {
+    "databases": "github:richardstevens/databases",
+    "logger": "github:richardstevens/logger",
+    "pino": "^4.13.0",
+    "puppeteer": "^1.2.0",
     "rightmove-scraper": "^1.0.3",
     "superagent": "^3.8.2",
-    "superagent-throttle": "^0.2.5"
+    "superagent-throttle": "^0.2.5",
+    "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "snazzy": "^7.1.1",
+    "standard": "^11.0.1"
   }
 }
