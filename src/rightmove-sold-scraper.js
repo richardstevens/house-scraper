@@ -68,7 +68,7 @@ const runAll = async (outcode) => {
 
   const browser = await puppeteer.launch({headless: true})
   const page = await browser.newPage()
-  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36')
+  await page.setUserAgent('house-scraper service - Chrome headless')
   await page.setViewport({ width: 1024, height: 768 })
   await page.goto(url + '0')
   let totalPages = await getValueFor({
