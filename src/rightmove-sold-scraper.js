@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer')
 const logger = require('logger')
 const database = require('databases')
 const timeout = { timeout: 5 * 1000 }
-let outcodeData = require('../output/remaining.json')
+let outcodeData = require('../output/londonData.json')
 
 // const screenshot = async (filename, page) => {
 //   await page.screenshot({path: 'screenshots/' + filename + '.png'})
